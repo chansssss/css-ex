@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding-top: 250px;
+        }
+
+        .draw-box {
+            height: 300px;
+            width: 300px;
+            border-radius: 50%;
+            background-color: #34495e;
+            margin: auto;
+            position: relative;
+            transform: rotate(30deg);
+            transition: all 4s cubic-bezier(0.77, 0.52, 0.01, 0.95);
+            /* animation: rotate1 5s cubic-bezier(0.77, 0.52, 0.01, 0.95);
+            animation-fill-mode:forwards; */
+            background: conic-gradient(red 45deg,
+                    orange 45deg 90deg,
+                    yellow 90deg 135deg,
+                    green 135deg 180deg,
+                    blue 180deg 225deg,
+                    orange 225deg 270deg,
+                    red 270deg 315deg,
+                    orange 315deg 360deg);
+        }
+
+        .rotate {
+            transform: rotate(3900deg)
+        }
+
+        @keyframes rotate1 {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(3900deg)
+            }
+        }
+
+        .cut-line {
+            position: absolute;
+            height: 50%;
+            width: 2px;
+            top: 0;
+            background-color: aliceblue;
+            left: 50%;
+            transform-origin: 0 100%;
+        }
+
+        .cut-line:nth-child(1) {
+            transform: rotate(0deg);
+        }
+
+        .cut-line:nth-child(2) {
+            transform: rotate(45deg);
+        }
+
+        .cut-line:nth-child(3) {
+            transform: rotate(90deg);
+        }
+
+        .cut-line:nth-child(4) {
+            transform: rotate(135deg);
+        }
+
+        .cut-line:nth-child(5) {
+            transform: rotate(180deg);
+        }
+
+        .cut-line:nth-child(6) {
+            transform: rotate(225deg);
+        }
+
+        .cut-line:nth-child(7) {
+            transform: rotate(270deg);
+        }
+
+        .cut-line:nth-child(8) {
+            transform: rotate(315deg);
+        }
+
+        .btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: aliceblue;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="draw-box" id="draw-box">
+        <span class="cut-line"></span>
+        <span class="cut-line"></span>
+        <span class="cut-line"></span>
+        <span class="cut-line"></span>
+        <span class="cut-line"></span>
+        <span class="cut-line"></span>
+        <span class="cut-line"></span>
+        <span class="cut-line"></span>
+        <div class="btn">
+
+        </div>
+    </div>
+
+    <button onclick="start()">Start</button>
+</body>
+<script>
+    document.getElementById("draw-box").addEventListener("transitionend", function (e) {
+        // this.style.transition = "none"
+        this.style.transform = "rotate(300deg)"
+    })
+    function start() {
+        let dom = document.getElementById('draw-box')
+        dom.style.transform = "rotate(3900deg)"
+        // dom.style.transition = 'all 4s cubic-bezier(0.77, 0.52, 0.01, 0.95)'
+    }   
+</script>
+
+</html>
