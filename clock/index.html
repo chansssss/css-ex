@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root{
+            --second-form: 0deg;
+            --second-to: 360deg;
+            --minute-form: 0deg;
+            --minute-to: 360deg;
+            --hour-form: 0deg;
+            --hour-to: 360deg;
+        }
+        body{
+            overflow: hidden;
+        }
+        *{
+            box-sizing: border-box;
+        }
+        .clock-box{
+            margin: 300px auto;
+            width: 300px;
+            height: 300px;
+            position: relative;
+            box-sizing: border-box;
+            border-radius: 50%;
+            border: 1px solid #000;
+            background-image: url('clock.png');
+            background-size: 100% 100%;
+            background-origin: 50% 50%;
+            /* background: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%); */
+        }
+        .second-hand{
+            position: absolute;
+            height: 50%;
+            width: 2px;
+            top: 0;
+            left: calc(50% - 1px);
+            background-color: #e67e22;
+        }
+        .second-gear{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: absolute;
+            top: calc(50% - 5px);
+            left: calc(50% - 5px);
+            border: 1px solid red;
+            animation: second-rotate 60s linear infinite;
+        }
+        .second-gear .hand{
+            position: absolute;
+            height: 150px;
+            width: 2px;
+            top: -145px;
+            left: calc(50% - 1px);
+            background-color: #e67e22;
+        }
+
+        .minute-gear{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: absolute;
+            top: calc(50% - 5px);
+            left: calc(50% - 5px);
+            border: 1px solid red;
+            animation: minute-rotate 3600s linear infinite;
+        }
+        .minute-gear .hand{
+            position: absolute;
+            height: 105px;
+            width: 2px;
+            top: -100px;
+            left: calc(50% - 1px);
+            background-color: #000;
+        }
+
+        .hour-gear{
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            position: absolute;
+            top: calc(50% - 5px);
+            left: calc(50% - 5px);
+            border: 1px solid red;
+            animation: hour-rotate 43200s linear infinite;
+        }
+        .hour-gear .hand{
+            position: absolute;
+            height: 60px;
+            width: 2px;
+            top: -55px;
+            left: calc(50% - 1px);
+            background-color: red;
+        }
+
+        @keyframes second-rotate {
+            from{
+                transform: rotate(var(--second-form));
+            }
+            to{
+                transform: rotate(var(--second-to));
+            }
+        }
+
+        @keyframes minute-rotate {
+            from{
+                transform: rotate(var(--minute-form));
+            }
+            to{
+                transform: rotate(var(--minute-to));
+            }
+        }
+
+        @keyframes hour-rotate {
+            from{
+                transform: rotate(var(--hour-form));
+            }
+            to{
+                transform: rotate(var(--hour-to));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="clock-box">
+        <div class="second-gear">
+            <span class="hand"></span>
+        </div>
+        <div class="minute-gear">
+            <span class="hand"></span>
+        </div>
+        <div class="hour-gear">
+            <span class="hand"></span>
+        </div>
+    </div>
+
+    <script>
+        const d = new Date();
+        function initSecondGear(d) {
+            let seconds = d.getSeconds();
+            let form = (seconds/60*360).toFixed(0)
+            let to = Number(form) + 360
+            document.documentElement.style.setProperty('--second-form',`${form}deg`)
+            document.documentElement.style.setProperty('--second-to',`${to}deg`)
+        }
+        function initMinuteGear(d) {
+            let minute = d.getMinutes();
+            let form = (minute/60*360).toFixed(0)
+            let to = Number(form) + 360
+            document.documentElement.style.setProperty('--minute-form',`${form}deg`)
+            document.documentElement.style.setProperty('--minute-to',`${to}deg`)
+        }
+        function initHourGear(d) {
+            let hour = d.getHours() > 12? d.getHours()-12:d.getHours();
+            let minute = d.getMinutes();
+            let form = ((hour+minute/60)/12*360).toFixed(0)
+            let to = Number(form) + 360
+            console.log(hour,form,to);
+            document.documentElement.style.setProperty('--hour-form',`${form}deg`)
+            document.documentElement.style.setProperty('--hour-to',`${to}deg`)
+        }
+        initSecondGear(d)
+        initMinuteGear(d)
+        initHourGear(d)
+        console.log(d.getMilliseconds());
+    </script>
+</body>
+</html>
